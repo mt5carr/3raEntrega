@@ -1,0 +1,30 @@
+{% extends "tareas/base.html" %}
+
+{% block subtitulo %}
+    Lista de Proyectos
+{% endblock subtitulo %}
+
+{% block contenido %}
+<h1>Lista de Proyectos</h1>
+<a href="{% url 'crear_proyecto' %}" class="btn btn-secondary">Nuevo Proyecto</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Descripción</th>
+            <th>Inicio</th>
+
+        </tr>
+    </thead>
+    <tbody>        
+        {% for proyecto in proyectos %}
+        <tr>
+            <td>{{ proyecto.id }}</td>
+            <td>{{ proyecto.proyecto }}</td>
+            <td>{{ proyecto.fecha_inicio }}</td>            
+        </tr>
+        {% endfor %}        
+    </tbody>
+</table>
+
+{% endblock contenido %}

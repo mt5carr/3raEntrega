@@ -1,0 +1,20 @@
+{% extends "tareas/base.html" %}
+
+{% block subtitulo %}
+    Nuevo Proyecto
+{% endblock subtitulo %}
+
+{% block contenido %}
+<h1>Nuevo Proyecto</h1>
+
+<form action="{% url 'crear_proyecto' %}" method="post">
+    {% csrf_token %}
+    <p>Nombre Proyecto</p>
+    <input type="text" name="proyecto" required><br>
+    <p>Fecha inicio</p>
+    <input type="date" name="fecha" required><br><br>
+    <input type="submit" value="Guardar">
+</form>
+
+
+{% endblock contenido %}

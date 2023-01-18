@@ -1,0 +1,39 @@
+{% extends "tareas/base.html" %}
+
+{% block subtitulo %}
+    Lista de Tareas
+{% endblock subtitulo %}
+
+{% block contenido %}
+<h1>Lista de Tareas</h1>
+<a href="{% url 'crear_tarea' %}" class="btn btn-secondary">Nueva Tarea</a>
+<br>
+<form action="{% url 'buscar_tarea' %}" method="post">
+    {% csrf_token %}
+    <p>Descripción tarea:</p>
+    <input type="text" name="tarea">
+    <input type="submit" value="Buscar">    
+</form>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Descripción</th>
+            <th>Vencimiento</th>
+
+        </tr>
+    </thead>
+    <tbody>        
+        {% for tarea in tareas %}
+        <tr>
+            <td>{{ tarea.id }}</td>
+            <td>{{ tarea.tarea }}</td>
+            <td>{{ tarea.fecha_vencimiento }}</td>            
+        </tr>
+        {% endfor %}        
+    </tbody>
+</table>
+
+{% endblock contenido %}

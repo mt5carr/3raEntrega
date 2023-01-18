@@ -1,0 +1,30 @@
+{% extends "tareas/base.html" %}
+
+{% block subtitulo %}
+    Lista de Clientes
+{% endblock subtitulo %}
+
+{% block contenido %}
+<h1>Lista de Clientes</h1>
+<a href="{% url 'crear_cliente' %}" class="btn btn-secondary">Nuevo Cliente</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Fecha Alta</th>
+        </tr>
+    </thead>
+    <tbody>        
+        {% for cliente in clientes %}
+        <tr>
+            <td>{{ cliente.id }}</td>
+            <td>{{ cliente.nombre }}</td>
+            <td>{{ cliente.apellido }}</td>
+            <td>{{ cliente.fecha_alta }}</td>  
+        </tr>
+        {% endfor %}        
+    </tbody>
+</table>
+{% endblock contenido %}    

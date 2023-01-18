@@ -1,0 +1,22 @@
+{% extends "tareas/base.html" %}
+
+{% block subtitulo %}
+    Nuevo Cliente
+{% endblock subtitulo %}
+
+{% block contenido %}
+<h1>Nuevo Cliente</h1>
+
+<form action="{% url 'crear_cliente' %}" method="post">
+    {% csrf_token %}
+    <p>Nombre Cliente</p>
+    <input type="text" name="nombre" required><br>
+    <p>Apellido Cliente</p>
+    <input type="text" name="apellido" required><br>
+    <p>Fecha Alta</p>
+    <input type="date" name="fecha" required><br><br>
+    <input type="submit" value="Guardar">
+</form>
+
+
+{% endblock contenido %}
