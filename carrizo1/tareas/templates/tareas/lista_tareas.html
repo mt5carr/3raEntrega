@@ -5,35 +5,42 @@
 {% endblock subtitulo %}
 
 {% block contenido %}
-<h1>Lista de Tareas</h1>
-<a href="{% url 'crear_tarea' %}" class="btn btn-secondary">Nueva Tarea</a>
+<div class="container">
+    <h1>Lista de Tareas</h1>
+    <a href="{% url 'crear_tarea' %}" class="btn btn-secondary">Nueva Tarea</a>
+</div>
 <br>
-<form action="{% url 'buscar_tarea' %}" method="post">
-    {% csrf_token %}
-    <p>Descripción tarea:</p>
-    <input type="text" name="tarea">
-    <input type="submit" value="Buscar">    
-</form>
 
+<div class="container">
+    <form action="{% url 'buscar_tarea' %}" method="post">
+        {% csrf_token %}
+        <p>Buscar tarea:</p>
+        <input type="text" name="tarea">
+        <input type="submit" value="Buscar">    
+    </form>
+    <a href="{% url 'lista_tareas' %}">Limpiar Filtro</a>
+</div>
+<br>
+<br>
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Descripción</th>
+                <th>Vencimiento</th>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Descripción</th>
-            <th>Vencimiento</th>
-
-        </tr>
-    </thead>
-    <tbody>        
-        {% for tarea in tareas %}
-        <tr>
-            <td>{{ tarea.id }}</td>
-            <td>{{ tarea.tarea }}</td>
-            <td>{{ tarea.fecha_vencimiento }}</td>            
-        </tr>
-        {% endfor %}        
-    </tbody>
-</table>
-
+            </tr>
+        </thead>
+        <tbody>        
+            {% for tarea in tareas %}
+            <tr>
+                <td>{{ tarea.id }}</td>
+                <td>{{ tarea.tarea }}</td>
+                <td>{{ tarea.fecha_vencimiento }}</td>            
+            </tr>
+            {% endfor %}        
+        </tbody>
+    </table>
+</div>
 {% endblock contenido %}

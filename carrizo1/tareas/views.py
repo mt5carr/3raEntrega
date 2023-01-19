@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.http import HttpResponse
 from tareas.models import Tareas, Proyectos, Clientes
-from datetime import date
+from django.db.models import Q
 
 
 def saludar(request):
@@ -56,18 +56,6 @@ def crear_tarea(request):
             template_name='tareas/cargar_tarea.html'
             )
 
-def buscar_tarea(request):
-    if request.method == "POST":
-        data = request.POST
-        tarea_buscada = Tareas.objects.filter(tarea_contains=data['tarea'])        
-        contexto = {
-        'tareas': tarea_buscada
-    }
-        return render(
-            request=request, 
-            template_name='tareas/lista_tareas.html',
-            context=contexto
-        )
 
 def crear_proyecto(request):
     if request.method == "POST":
@@ -93,3 +81,44 @@ def crear_cliente(request):
             template_name='tareas/cargar_cliente.html'
             )
 
+
+def buscar_tarea(request):
+    if request.method == "POST":
+        data = request.POST
+        tarea_buscada = Tareas.objects.filter(tarea__contains=data['tarea'])       
+        contexto = {
+            'tareas': tarea_buscada
+            }
+        return render(
+            request=request, 
+            template_name='tareas/lista_tareas.html',
+            context=contexto
+            )
+
+def buscar_proyecto(request):
+    if request.method == "POST":
+        data = request.POST
+        proyecto_buscado = Proyectos.objects.filter(proyecto__contains=data['proyecto'])       
+        contexto = {
+            'proyectos': proyecto_buscado
+            }
+        return render(
+            request=request, 
+            template_name='tareas/lista_proyectos.html',
+            context=contexto
+            )
+
+def buscar_cliente(request):
+    if request.method == "POST":
+        data = request.POST
+        cliente_buscado = Clientes.objects.filter(
+            Q(nombre__contains=data['cliente']) | Q(apellido__contains=data['cliente'])
+            )       
+        contexto = {
+            'clientes': cliente_buscado
+            }
+        return render(
+            request=request, 
+            template_name='tareas/lista_clientes.html',
+            context=contexto
+            )

@@ -5,26 +5,44 @@
 {% endblock subtitulo %}
 
 {% block contenido %}
-<h1>Lista de Proyectos</h1>
-<a href="{% url 'crear_proyecto' %}" class="btn btn-secondary">Nuevo Proyecto</a>
-<table class="table">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Descripción</th>
-            <th>Inicio</th>
+<div class="container">
+    <h1>Lista de Proyectos</h1>
+    <a href="{% url 'crear_proyecto' %}" class="btn btn-secondary">Nuevo Proyecto</a>
+</div>
+<br>
 
-        </tr>
-    </thead>
-    <tbody>        
-        {% for proyecto in proyectos %}
-        <tr>
-            <td>{{ proyecto.id }}</td>
-            <td>{{ proyecto.proyecto }}</td>
-            <td>{{ proyecto.fecha_inicio }}</td>            
-        </tr>
-        {% endfor %}        
-    </tbody>
-</table>
+<div class="container">
+    <form action="{% url 'buscar_proyecto' %}" method="post">
+        {% csrf_token %}
+        <p>Buscar proyecto:</p>
+        <input type="text" name="proyecto">
+        <input type="submit" value="Buscar">    
+    </form>
+    <a href="{% url 'lista_proyectos' %}">Limpiar Filtro</a>
+</div>
+<br>
+<br>
 
+
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Descripción</th>
+                <th>Inicio</th>
+
+            </tr>
+        </thead>
+        <tbody>        
+            {% for proyecto in proyectos %}
+            <tr>
+                <td>{{ proyecto.id }}</td>
+                <td>{{ proyecto.proyecto }}</td>
+                <td>{{ proyecto.fecha_inicio }}</td>            
+            </tr>
+            {% endfor %}        
+        </tbody>
+    </table>
+</div>
 {% endblock contenido %}
